@@ -2,27 +2,27 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#05070f">
-<title>Aurora</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#04140c">
+<title>Medita con Fran</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Sora:wght@400;500;600;700&display=swap">
 <style>
   :root{
-    --ink-950:#05070f;
-    --ink-900:#0a0e1f;
-    --ink-850:#0e1428;
-    --ink-800:#121a35;
-    --ink-700:#1b2547;
-    --ink-600:#28345f;
-    --ink-500:#3a4778;
-    --moon:#f5f3ff;
-    --mist:#aab2dc;
-    --mist-dim:#7580ab;
-    --aurora-blue:#7c9bff;
-    --aurora-teal:#5eead4;
-    --aurora-violet:#c199ff;
+    --ink-950:#04140c;
+    --ink-900:#082017;
+    --ink-850:#0b2a1e;
+    --ink-800:#103525;
+    --ink-700:#194a34;
+    --ink-600:#23604a;
+    --ink-500:#337a5f;
+    --moon:#f3fbf6;
+    --mist:#bcdbc9;
+    --mist-dim:#82a794;
+    --aurora-blue:#22c55e;
+    --aurora-teal:#6ee7b7;
+    --aurora-violet:#0d9488;
     --ember:#ffb066;
     --danger:#ff8f8f;
     --radius-lg:26px;
@@ -96,13 +96,13 @@
   }
 
   .tabbar{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:6px;
+    display:grid;grid-template-columns:repeat(5,1fr);gap:5px;
     background:var(--ink-900);border:1px solid rgba(255,255,255,0.06);
     border-radius:999px;padding:5px;margin-bottom:22px;
   }
   .tab{
     border:none;background:transparent;color:var(--mist-dim);
-    padding:9px 4px;border-radius:999px;font-size:12.5px;font-weight:600;
+    padding:9px 2px;border-radius:999px;font-size:11.3px;font-weight:600;
     cursor:pointer;transition:background .2s,color .2s;
   }
   .tab.active{background:var(--ink-700);color:var(--moon);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.06);}
@@ -128,7 +128,7 @@
   .orb-preview{width:84px;height:84px;position:relative;flex-shrink:0;}
   .orb-preview .orb-core{
     position:absolute;inset:10px;border-radius:50%;
-    background:radial-gradient(circle at 35% 30%,#dfe6ff,var(--aurora-blue) 55%,var(--aurora-violet) 100%);
+    background:radial-gradient(circle at 35% 30%,#e3fbea,var(--aurora-blue) 55%,var(--aurora-violet) 100%);
     box-shadow:0 0 30px 6px rgba(124,155,255,0.45);
   }
   .orb-preview .orb-ring{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(124,155,255,0.35);}
@@ -146,7 +146,7 @@
     font-size:13px;font-weight:600;cursor:pointer;transition:background .2s,border-color .2s,color .2s;
   }
   .chip:hover{border-color:rgba(255,255,255,0.24);}
-  .chip.active{background:linear-gradient(135deg,var(--aurora-blue),var(--aurora-violet));color:#0a0e1f;border-color:transparent;}
+  .chip.active{background:linear-gradient(135deg,var(--aurora-blue),var(--aurora-violet));color:#072a18;border-color:transparent;}
 
   .field-label{display:block;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--mist-dim);font-weight:700;margin-bottom:10px;}
   .sound-pick-row{width:100%;text-align:left;}
@@ -154,7 +154,7 @@
   .btn-primary{
     width:100%;border:none;border-radius:999px;padding:16px;
     background:linear-gradient(120deg,var(--aurora-blue),var(--aurora-violet));
-    color:#0a0e1f;font-weight:700;font-size:14.5px;letter-spacing:0.01em;
+    color:#072a18;font-weight:700;font-size:14.5px;letter-spacing:0.01em;
     cursor:pointer;box-shadow:0 10px 26px rgba(124,155,255,0.3);
     transition:transform .12s ease;
   }
@@ -197,7 +197,7 @@
     width:40px;height:40px;border-radius:12px;flex-shrink:0;
     background:var(--ink-800);display:flex;align-items:center;justify-content:center;color:var(--aurora-teal);
   }
-  .sound-row.on .sound-icon{background:linear-gradient(135deg,var(--aurora-blue),var(--aurora-teal));color:#06111f;}
+  .sound-row.on .sound-icon{background:linear-gradient(135deg,var(--aurora-blue),var(--aurora-teal));color:#072a18;}
   .sound-meta{flex:1;min-width:0;}
   .sound-meta .sname{font-size:14px;font-weight:600;}
   .sound-meta input[type=range]{
@@ -208,7 +208,7 @@
     background:transparent;color:var(--moon);display:flex;align-items:center;justify-content:center;
     cursor:pointer;flex-shrink:0;transition:background .2s,border-color .2s;
   }
-  .sound-row.on .sound-toggle{background:var(--aurora-teal);border-color:var(--aurora-teal);color:#06111f;}
+  .sound-row.on .sound-toggle{background:var(--aurora-teal);border-color:var(--aurora-teal);color:#072a18;}
 
   /* ---------- Progreso ---------- */
   .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
@@ -286,17 +286,17 @@
   .ring-track{fill:none;stroke:rgba(255,255,255,0.08);stroke-width:5;}
   .ring-fill{fill:none;stroke:url(#ringGrad);stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 1s linear;}
   .orb-body{position:absolute;width:150px;height:150px;border-radius:50%;
-    background:radial-gradient(circle at 35% 30%,#e7ecff,var(--aurora-blue) 55%,var(--aurora-violet) 100%);
+    background:radial-gradient(circle at 35% 30%,#e3fbea,var(--aurora-blue) 55%,var(--aurora-violet) 100%);
     box-shadow:0 0 50px 12px rgba(124,155,255,0.4);
     transition:transform 4s ease-in-out;
   }
-  .time-label{position:relative;z-index:2;font-family:'Fraunces',serif;font-size:34px;font-weight:500;font-variant-numeric:tabular-nums;color:#0a0e1f;}
-  .phase-label{position:relative;z-index:2;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#0a0e1f;margin-top:4px;}
+  .time-label{position:relative;z-index:2;font-family:'Fraunces',serif;font-size:34px;font-weight:500;font-variant-numeric:tabular-nums;color:#072a18;}
+  .phase-label{position:relative;z-index:2;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#072a18;margin-top:4px;}
 
   .overlay-controls{display:flex;align-items:center;gap:14px;}
   .icon-btn-lg{
     width:58px;height:58px;border-radius:50%;border:none;
-    background:var(--moon);color:#0a0e1f;display:flex;align-items:center;justify-content:center;cursor:pointer;
+    background:var(--moon);color:#072a18;display:flex;align-items:center;justify-content:center;cursor:pointer;
     box-shadow:0 10px 24px rgba(0,0,0,0.35);
   }
 
@@ -313,7 +313,7 @@
   .complete-badge{
     width:72px;height:72px;border-radius:50%;
     background:radial-gradient(circle,var(--aurora-teal),var(--aurora-blue));
-    display:flex;align-items:center;justify-content:center;color:#06111f;
+    display:flex;align-items:center;justify-content:center;color:#072a18;
     box-shadow:0 0 40px 10px rgba(94,234,212,0.35);
   }
 
@@ -331,9 +331,73 @@
     .ring-orb{width:200px;height:200px;}
     .orb-body{width:128px;height:128px;}
   }
+
+  /* ---------- Mode toggle (Desarrollador / Cliente) ---------- */
+  .mode-toggle{
+    display:flex;align-items:center;gap:2px;
+    border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.04);
+    padding:3px;border-radius:999px;
+  }
+  .mode-opt{
+    border:none;background:transparent;color:var(--mist-dim);
+    padding:6px 11px;border-radius:999px;
+    font-size:11px;font-weight:700;letter-spacing:0.02em;cursor:pointer;
+    transition:background .2s,color .2s;white-space:nowrap;
+  }
+  .mode-opt.active{color:#072a18;}
+  .mode-opt[data-mode="developer"].active{background:linear-gradient(135deg,var(--aurora-violet),var(--aurora-blue));}
+  .mode-opt[data-mode="client"].active{background:linear-gradient(135deg,var(--aurora-teal),var(--aurora-blue));}
+  body.mode-client .dev-only{display:none!important;}
+
+  /* ---------- Audios guiados ---------- */
+  .audio-list{display:flex;flex-direction:column;gap:12px;margin-top:4px;}
+  .audio-card{
+    background:var(--ink-900);border:1px solid rgba(255,255,255,0.07);
+    border-radius:var(--radius-md);padding:16px 16px 14px;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .audio-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+  .audio-titles{min-width:0;}
+  .audio-name{font-family:'Fraunces',serif;font-size:15.5px;font-weight:600;}
+  .audio-desc{font-size:12.5px;color:var(--mist);line-height:1.5;margin-top:3px;}
+  .audio-badge{
+    flex-shrink:0;font-size:10.5px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;
+    padding:5px 9px;border-radius:999px;color:var(--aurora-teal);
+    background:rgba(94,234,212,0.1);border:1px solid rgba(94,234,212,0.25);white-space:nowrap;
+  }
+  .audio-badge.file{color:var(--ember);background:rgba(255,176,102,0.1);border-color:rgba(255,176,102,0.28);}
+  .audio-meta-row{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--mist-dim);}
+  .audio-progress-track{height:4px;border-radius:4px;background:rgba(255,255,255,0.08);overflow:hidden;}
+  .audio-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--aurora-blue),var(--aurora-teal));transition:width .3s linear;}
+  .audio-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .audio-controls .btn-outline{padding:9px 15px;font-size:12.5px;width:auto;}
+  .audio-icon-btn{
+    width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,0.14);
+    background:transparent;color:var(--mist);display:flex;align-items:center;justify-content:center;
+    cursor:pointer;flex-shrink:0;transition:background .2s,color .2s,border-color .2s;
+  }
+  .audio-icon-btn:hover{background:rgba(255,255,255,0.06);color:var(--moon);}
+  .audio-icon-btn.danger{color:var(--danger);border-color:rgba(255,143,143,0.3);}
+
+  .audio-form{
+    background:var(--ink-850);border:1px dashed rgba(193,153,255,0.35);
+    border-radius:var(--radius-md);padding:16px;display:flex;flex-direction:column;gap:12px;
+  }
+  .text-input{
+    width:100%;background:var(--ink-900);border:1px solid rgba(255,255,255,0.12);
+    border-radius:var(--radius-sm);color:var(--moon);padding:11px 13px;font-family:inherit;font-size:13.5px;
+  }
+  .text-input:focus{outline:none;border-color:rgba(124,155,255,0.5);}
+  .script-input{min-height:140px;resize:vertical;margin-top:10px;}
+  .file-drop{
+    border:1.5px dashed rgba(255,255,255,0.18);border-radius:var(--radius-sm);
+    padding:16px;text-align:center;font-size:12.5px;color:var(--mist-dim);
+  }
 </style>
 </head>
 <body>
+
+
 <div class="aurora-bg" aria-hidden="true">
   <div class="blob b1"></div>
   <div class="blob b2"></div>
@@ -343,17 +407,24 @@
 <div class="app-shell">
   <div class="topbar">
     <div class="brand">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3a7 7 0 1 0 9 9 9 9 0 1 1-9-9z" fill="url(#logoGrad)"/><defs><linearGradient id="logoGrad" x1="3" y1="3" x2="21" y2="21"><stop offset="0" stop-color="#7c9bff"/><stop offset="1" stop-color="#c199ff"/></linearGradient></defs></svg>
-      <span>Aurora</span>
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3a7 7 0 1 0 9 9 9 9 0 1 1-9-9z" fill="url(#logoGrad)"/><defs><linearGradient id="logoGrad" x1="3" y1="3" x2="21" y2="21"><stop offset="0" stop-color="#22c55e"/><stop offset="1" stop-color="#0d9488"/></linearGradient></defs></svg>
+      <span>Medita con Fran</span>
     </div>
-    <div class="streak-pill">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 3-2 4-2 7a4 4 0 0 0 8 0c0-1-.5-2-1-2 .5 2-1 3-2 3-1.5 0-2-1.2-2-2.3C13 5.8 15 4.5 14 2c3 1.5 7 5.3 7 10a9 9 0 1 1-18 0C3 8 7 4 12 2z"/></svg>
-      <span id="streakCount">0</span>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div class="mode-toggle" role="group" aria-label="Cambiar entre modo desarrollador y cliente">
+        <button type="button" class="mode-opt" id="modeOptDev" data-mode="developer">Desarrollador</button>
+        <button type="button" class="mode-opt active" id="modeOptClient" data-mode="client">Cliente</button>
+      </div>
+      <div class="streak-pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 3-2 4-2 7a4 4 0 0 0 8 0c0-1-.5-2-1-2 .5 2-1 3-2 3-1.5 0-2-1.2-2-2.3C13 5.8 15 4.5 14 2c3 1.5 7 5.3 7 10a9 9 0 1 1-18 0C3 8 7 4 12 2z"/></svg>
+        <span id="streakCount">0</span>
+      </div>
     </div>
   </div>
 
   <nav class="tabbar" role="tablist">
     <button class="tab active" data-tab="hoy" role="tab" aria-selected="true">Hoy</button>
+    <button class="tab" data-tab="audios" role="tab" aria-selected="false">Audios</button>
     <button class="tab" data-tab="respirar" role="tab" aria-selected="false">Respirar</button>
     <button class="tab" data-tab="sonidos" role="tab" aria-selected="false">Sonidos</button>
     <button class="tab" data-tab="progreso" role="tab" aria-selected="false">Progreso</button>
@@ -404,6 +475,59 @@
       <div class="mini-recent">
         <h3>Última sesión</h3>
         <p class="muted" id="miniRecentText">Aún no has meditado. Hoy es un buen día para empezar.</p>
+      </div>
+    </section>
+
+    <!-- ===== AUDIOS GUIADOS ===== -->
+    <section class="view" id="view-audios">
+      <div class="greeting">
+        <p class="eyebrow">Audios guiados</p>
+        <h1 class="display" style="font-size:24px;">Relajación e hipnosis con voz</h1>
+      </div>
+
+      <div class="audio-list" id="audioList"></div>
+
+      <button class="btn-outline dev-only" id="btnShowAddAudio" style="align-self:flex-start;">+ Añadir audio nuevo</button>
+
+      <div class="audio-form dev-only" id="audioForm" hidden>
+        <div>
+          <span class="field-label">Título</span>
+          <input type="text" class="text-input" id="audioFormTitle" placeholder="Ej. Calma antes de dormir">
+        </div>
+        <div>
+          <span class="field-label">Descripción</span>
+          <input type="text" class="text-input" id="audioFormDesc" placeholder="Una frase breve sobre el audio">
+        </div>
+        <div>
+          <span class="field-label">Tipo de audio</span>
+          <div class="chip-row" id="audioTypeChips">
+            <button type="button" class="chip active" data-audio-type="tts">Voz generada (guion)</button>
+            <button type="button" class="chip" data-audio-type="file">Archivo subido</button>
+          </div>
+        </div>
+        <div id="audioFormTts">
+          <span class="field-label">Sonido de fondo (opcional)</span>
+          <div class="chip-row" id="audioAmbientChips">
+            <button type="button" class="chip active" data-ambient="none">Ninguno</button>
+            <button type="button" class="chip" data-ambient="lluvia">Lluvia</button>
+            <button type="button" class="chip" data-ambient="olas">Olas</button>
+            <button type="button" class="chip" data-ambient="bosque">Bosque</button>
+            <button type="button" class="chip" data-ambient="viento">Viento</button>
+          </div>
+          <span class="field-label" style="margin-top:12px;">Guion (un párrafo por línea)</span>
+          <textarea class="text-input script-input" id="audioFormScript" placeholder="Escribe el guion de relajación que se leerá en voz alta…"></textarea>
+        </div>
+        <div id="audioFormFile" hidden>
+          <span class="field-label">Archivo de audio</span>
+          <div class="file-drop">
+            <input type="file" id="audioFormFileInput" accept="audio/*">
+            <p class="muted" style="margin-top:8px;">MP3, WAV o M4A. Se guarda en este dispositivo.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button class="btn-primary" id="btnSaveAudio" style="flex:1;">Guardar audio</button>
+          <button class="btn-outline" id="btnCancelAudio">Cancelar</button>
+        </div>
       </div>
     </section>
 
@@ -462,7 +586,7 @@
     <p class="overlay-label" id="sessionSoundLabel">En silencio</p>
     <div class="ring-orb">
       <svg class="progress-ring" viewBox="0 0 200 200">
-        <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c9bff"/><stop offset="1" stop-color="#5eead4"/></linearGradient></defs>
+        <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22c55e"/><stop offset="1" stop-color="#6ee7b7"/></linearGradient></defs>
         <circle class="ring-track" cx="100" cy="100" r="92"/>
         <circle class="ring-fill" id="ringFill" cx="100" cy="100" r="92" stroke-dasharray="578"/>
       </svg>
@@ -800,10 +924,556 @@
     return { ensureCtx:ensureCtx, toggle:toggle, setVolume:setVolume, isOn:isOn, stopAll:stopAll, playBell:playBell, LAYER_KEYS:LAYER_KEYS };
   })();
 
+  // ================================================================
+  // MODE: Desarrollador / Cliente
+  // ================================================================
+  var LS_MODE = 'aurora_mode_v1';
+  function getMode(){
+    try{ return localStorage.getItem(LS_MODE) || 'client'; }catch(e){ return 'client'; }
+  }
+  function applyMode(mode){
+    document.body.classList.toggle('mode-client', mode !== 'developer');
+    document.body.classList.toggle('mode-developer', mode === 'developer');
+    var devOpt = $('modeOptDev');
+    var cliOpt = $('modeOptClient');
+    if(devOpt) devOpt.classList.toggle('active', mode === 'developer');
+    if(cliOpt) cliOpt.classList.toggle('active', mode !== 'developer');
+  }
+  function setMode(mode){
+    try{ localStorage.setItem(LS_MODE, mode); }catch(e){}
+    applyMode(mode);
+  }
+  function chooseMode(mode){
+    if(getMode() === mode) return;
+    setMode(mode);
+    renderAudioList();
+    showToast(mode === 'developer' ? 'Modo desarrollador activado' : 'Modo cliente activado');
+  }
+  $('modeOptDev').addEventListener('click', function(){ chooseMode('developer'); });
+  $('modeOptClient').addEventListener('click', function(){ chooseMode('client'); });
+  applyMode(getMode());
+
+  // ================================================================
+  // AUDIO BLOB STORAGE (IndexedDB) — for developer-uploaded files
+  // ================================================================
+  var AudioBlobStore = (function(){
+    var dbp = null;
+    function open(){
+      if(dbp) return dbp;
+      dbp = new Promise(function(resolve, reject){
+        if(!window.indexedDB){ reject(new Error('no idb')); return; }
+        var req = indexedDB.open('AuroraAudioDB', 1);
+        req.onupgradeneeded = function(){
+          var db = req.result;
+          if(!db.objectStoreNames.contains('blobs')) db.createObjectStore('blobs');
+        };
+        req.onsuccess = function(){ resolve(req.result); };
+        req.onerror = function(){ reject(req.error); };
+      });
+      return dbp;
+    }
+    function put(id, blob){
+      return open().then(function(db){
+        return new Promise(function(resolve, reject){
+          var tx = db.transaction('blobs', 'readwrite');
+          tx.objectStore('blobs').put(blob, id);
+          tx.oncomplete = function(){ resolve(true); };
+          tx.onerror = function(){ reject(tx.error); };
+        });
+      }).catch(function(){ return false; });
+    }
+    function get(id){
+      return open().then(function(db){
+        return new Promise(function(resolve){
+          var tx = db.transaction('blobs', 'readonly');
+          var req = tx.objectStore('blobs').get(id);
+          req.onsuccess = function(){ resolve(req.result || null); };
+          req.onerror = function(){ resolve(null); };
+        });
+      }).catch(function(){ return null; });
+    }
+    function remove(id){
+      return open().then(function(db){
+        return new Promise(function(resolve){
+          var tx = db.transaction('blobs', 'readwrite');
+          tx.objectStore('blobs').delete(id);
+          tx.oncomplete = function(){ resolve(true); };
+          tx.onerror = function(){ resolve(false); };
+        });
+      }).catch(function(){ return false; });
+    }
+    return { put:put, get:get, remove:remove };
+  })();
+
+  // ================================================================
+  // GUIDED AUDIO LIBRARY (Desarrollador puede crear/editar/eliminar)
+  // ================================================================
+  var LS_AUDIO_LIB = 'aurora_audio_library_v1';
+
+  function defaultAudioLibrary(){
+    return [
+      {
+        id:'default_bodyscan', title:'Relajación profunda',
+        description:'Recorrido corporal para soltar la tensión, paso a paso.',
+        type:'tts', ambientSound:'lluvia', durationSec:600, createdAt:new Date().toISOString(),
+        script:[
+          'Bienvenido a este momento de relajación profunda. No necesitas hacer nada más que escuchar esta voz y dejar que tu cuerpo se vaya asentando poco a poco, a tu propio ritmo.',
+          'Busca una postura cómoda, sentado o tumbado, en un lugar donde no te vayan a interrumpir. Cuando estés listo, cierra los ojos suavemente y deja caer los párpados sin esfuerzo.',
+          'Empieza por observar tu respiración tal como es ahora, sin intentar cambiarla. Nota el aire entrando y saliendo, como una ola que llega a la orilla y se retira sin prisa.',
+          'Poco a poco, alarga un poco más cada exhalación. Inhala en silencio... y al soltar el aire, permite que los hombros bajen un poco más, que la mandíbula se afloje.',
+          'Vamos a recorrer tu cuerpo con calma, como si pasara una luz cálida por cada zona. Lleva tu atención a los pies. Nota el contacto con la superficie donde apoyan, y deja que se sientan pesados y en paz.',
+          'Sube esa atención a las piernas, a las pantorrillas, a las rodillas, a los muslos. Con cada respiración, imagina que sueltan un poco más de tensión, como si se derritieran suavemente.',
+          'Ahora dirige tu atención al abdomen y a la zona baja de la espalda. Aquí solemos guardar tensión sin darnos cuenta. Respira hacia ese espacio y, al exhalar, permite que se ablande.',
+          'Sigue subiendo hacia el pecho. Nota cómo se expande suavemente con cada inhalación y se relaja con cada exhalación, sin ningún esfuerzo de tu parte.',
+          'Lleva la atención a los hombros y deja que cada uno caiga un poco más lejos de las orejas. Los brazos se vuelven pesados, las manos se aflojan por completo.',
+          'Ahora el cuello y la nuca. Suelta cualquier tensión acumulada ahí, como si una mano cálida masajeara suavemente esa zona durante unos segundos.',
+          'Por último, relaja el rostro. La frente lisa, los párpados pesados, la mandíbula suelta, incluso la lengua descansando sin presión dentro de la boca.',
+          'Tu cuerpo está ahora más pesado, más tranquilo, más presente. No hay nada que resolver en este momento, ningún lugar al que llegar. Solo este instante de calma.',
+          'Permítete quedarte aquí, respirando con naturalidad, disfrutando de esta sensación de cuerpo relajado y mente en calma, todo el tiempo que necesites.',
+          'Cada vez que practiques esto, te resultará más fácil llegar a este estado de relajación. Tu cuerpo está aprendiendo un nuevo camino hacia la calma.',
+          'Cuando quieras, mueve suavemente los dedos de las manos y los pies. Respira un poco más profundo. Y cuando estés preparado, abre los ojos, llevando contigo esta sensación de calma al resto de tu día.'
+        ]
+      },
+      {
+        id:'default_sleep', title:'Sueño reparador',
+        description:'Una voz calmada te acompaña hacia un sueño profundo.',
+        type:'tts', ambientSound:'olas', durationSec:600, createdAt:new Date().toISOString(),
+        script:[
+          'Es hora de prepararte para un sueño profundo y reparador. Ponte cómodo en la cama, en la postura que más te guste para dormir, y deja que tu cuerpo se hunda suavemente en el colchón.',
+          'Cierra los ojos y respira con naturalidad. No hay nada que tengas que hacer ahora, ni resolver, ni recordar. Solo escuchar y dejarte llevar.',
+          'Imagina que con cada exhalación, el día de hoy se va quedando atrás, como si lo soltaras suavemente con el aire que sale de tus pulmones.',
+          'Nota el peso de tu cuerpo sobre la cama. Los pies pesados, relajados. Las piernas, cada vez más pesadas y tranquilas, hundiéndose un poco más con cada respiración.',
+          'Deja que esa pesadez agradable suba por el cuerpo, por el abdomen, por el pecho, aflojando cualquier tensión que hayas acumulado durante el día.',
+          'Los hombros se hunden en la almohada o el colchón. Los brazos pesan, las manos están completamente flojas, sin ninguna tensión.',
+          'El cuello se relaja, la cabeza descansa por completo. La mandíbula se afloja, los labios se separan ligeramente, la frente está lisa y tranquila.',
+          'Con cada respiración que haces, te acercas un poco más al sueño. No hace falta esforzarse. El sueño llega solo, cuando el cuerpo y la mente están en calma.',
+          'Imagina un lugar tranquilo junto al mar, de noche. Escuchas las olas llegar y retirarse, una y otra vez, con un ritmo constante y suave.',
+          'Cada ola que llega se lleva un poco más de tensión. Cada ola que se retira te deja un poco más relajado, un poco más cerca del sueño.',
+          'No hay prisa. Puedes quedarte en este lugar tranquilo todo el tiempo que necesites, escuchando el mar, sintiendo cómo tu cuerpo se vuelve cada vez más pesado.',
+          'Si algún pensamiento aparece, no pasa nada. Déjalo pasar como una nube en el cielo nocturno, y vuelve tu atención al sonido suave de las olas.',
+          'Tu respiración se hace cada vez más lenta, más profunda, más tranquila. Todo tu cuerpo está pesado, cálido, en completa calma.',
+          'Permítete descansar. Permítete soltar. Esta noche, tu cuerpo y tu mente merecen este descanso profundo y reparador.',
+          'Sigue respirando suavemente, dejándote llevar poco a poco hacia el sueño, mientras el sonido del mar te acompaña durante el resto de la noche.'
+        ]
+      },
+      {
+        id:'default_stress', title:'Alivio del estrés',
+        description:'Suelta la tensión acumulada del día y recupera la calma.',
+        type:'tts', ambientSound:'bosque', durationSec:600, createdAt:new Date().toISOString(),
+        script:[
+          'Bienvenido a este espacio para soltar el estrés acumulado. Durante los próximos minutos, no hay nada urgente que atender. Solo este momento, y tu respiración.',
+          'Ponte cómodo, en la postura que prefieras, y cierra los ojos si te resulta agradable. Vamos a empezar por reconocer cómo te sientes ahora mismo, sin juzgarlo.',
+          'Haz una respiración profunda por la nariz... y suelta el aire lentamente por la boca, como si soplaras una vela sin apagarla del todo.',
+          'Repite esto un par de veces más, a tu propio ritmo. Con cada exhalación, imagina que el estrés del día empieza a aflojarse, poco a poco.',
+          'Ahora imagina que estás en un bosque tranquilo. La luz entra suavemente entre las hojas, el aire es fresco, y el suelo bajo tus pies es firme y seguro.',
+          'Cada paso que darías en ese bosque sería lento y tranquilo. No hay prisa aquí. El tiempo se mueve de otra manera en este lugar.',
+          'Nota cómo tus hombros, que quizás llevas un rato tensando sin darte cuenta, empiezan a bajar. Deja que caigan, como si soltaras un peso que ya no necesitas cargar.',
+          'Afloja también la mandíbula. Muchas veces apretamos los dientes sin notarlo cuando estamos bajo presión. Suéltala ahora, deja un pequeño espacio entre los dientes.',
+          'Piensa en una situación que te haya generado tensión hoy. No para revivirla, sino para reconocerla, y luego dejarla ir, como una hoja que cae de un árbol.',
+          'Recuerda que no tienes que resolver nada en este momento. Ahora mismo, tu única tarea es respirar y estar aquí, en este bosque tranquilo que has creado en tu mente.',
+          'Con cada respiración, tu cuerpo libera un poco más de tensión. Los músculos de la espalda se aflojan. El pecho se siente más abierto y ligero.',
+          'Recuerda que el estrés es una respuesta temporal, no un estado permanente. Tú tienes la capacidad de volver a la calma, una y otra vez, como estás haciendo ahora.',
+          'Quédate unos momentos más en este bosque interior, respirando con calma, sintiendo cómo la tensión sigue disolviéndose con cada respiración.',
+          'Cuando quieras, puedes volver a este lugar tranquilo siempre que lo necesites. Solo tienes que cerrar los ojos y recordar este bosque, esta calma, esta respiración.',
+          'Poco a poco, mueve los dedos, respira un poco más profundo, y cuando estés listo, abre los ojos, llevando contigo esta sensación de alivio y calma.'
+        ]
+      },
+      {
+        id:'default_confidence', title:'Confianza y calma interior',
+        description:'Sugestiones suaves para reforzar tu seguridad y serenidad.',
+        type:'tts', ambientSound:'none', durationSec:600, createdAt:new Date().toISOString(),
+        script:[
+          'Bienvenido a este momento dedicado a fortalecer tu confianza y tu calma interior. Ponte cómodo, cierra los ojos si lo deseas, y permite que mi voz te acompañe.',
+          'Respira profundamente, inhalando por la nariz y exhalando lentamente. Con cada respiración, tu mente se vuelve más receptiva, más tranquila, más abierta.',
+          'Vas a permitirte, durante los próximos minutos, dejar de lado cualquier duda o inseguridad. No para siempre, solo por ahora, solo para este momento de práctica.',
+          'Imagina una luz cálida en el centro de tu pecho. Esa luz representa tu propia fuerza interior, la que siempre ha estado ahí, incluso cuando no la sentías.',
+          'Con cada respiración, esa luz se hace un poco más brillante, un poco más grande, extendiéndose suavemente por todo tu cuerpo.',
+          'Repite mentalmente, a tu propio ritmo: soy capaz. Puedo con esto. Confío en mí. No hace falta que lo digas en voz alta, solo déjalo resonar dentro de ti.',
+          'Piensa en un momento de tu vida en el que superaste algo difícil. Recuerda cómo te sentiste al conseguirlo. Esa capacidad sigue contigo, ahora mismo.',
+          'Tu valor no depende de la aprobación de los demás, ni de que todo salga perfecto. Tu valor está en cómo te levantas, en cómo sigues intentándolo.',
+          'Deja que esa idea se asiente en tu mente, como una semilla que empieza a echar raíces. Cada vez que la recuerdes, se hará un poco más fuerte.',
+          'Nota cómo tu respiración se ha vuelto más calmada. Tu cuerpo está relajado, pero tu mente está alerta, conectada con esa fuerza interior que estás cultivando.',
+          'A partir de ahora, cada vez que sientas duda o inseguridad, puedes recordar esta luz cálida en tu pecho, este momento de calma y confianza.',
+          'No necesitas que desaparezca el miedo por completo para actuar con valentía. Solo necesitas recordar que puedes sostenerlo, y seguir adelante de todas formas.',
+          'Respira una vez más, profundamente, sintiendo esa calma y esa confianza instalándose un poco más en cada célula de tu cuerpo.',
+          'Lleva contigo esta sensación cuando termines esta práctica. Está disponible siempre que la necesites, solo con recordar este momento y esta respiración.',
+          'Cuando estés preparado, mueve suavemente los dedos de las manos, respira profundo una última vez, y abre los ojos, llevando contigo esta calma y esta confianza renovadas.'
+        ]
+      },
+      {
+        id:'default_nightbreath', title:'Respiración consciente nocturna',
+        description:'Una práctica suave de respiración para cerrar el día.',
+        type:'tts', ambientSound:'viento', durationSec:600, createdAt:new Date().toISOString(),
+        script:[
+          'Bienvenido a esta práctica de respiración consciente para cerrar el día. Ponte cómodo, en la postura que prefieras, y permite que tu cuerpo empiece a soltar la actividad del día.',
+          'Cierra los ojos si te resulta agradable. Durante los próximos minutos, tu única tarea será acompañar tu respiración, sin cambiarla, solo observándola.',
+          'Nota el aire entrando por la nariz, fresco, y saliendo un poco más cálido. Sin forzar nada, simplemente observando este ciclo natural que tu cuerpo repite miles de veces al día.',
+          'Poco a poco, vamos a alargar un poco la exhalación. Inhala contando mentalmente hasta cuatro... y exhala contando hasta seis, dejando salir el aire despacio.',
+          'Inhala de nuevo, contando hasta cuatro... y exhala contando hasta seis, notando cómo el cuerpo se relaja un poco más con cada salida de aire.',
+          'Continúa con este ritmo suave, a tu propio paso, sin necesidad de contar en voz alta ni de ser exacto. Solo dejando que la exhalación sea un poco más larga que la inhalación.',
+          'Con cada respiración, imagina que sueltas la actividad del día, como quien deja las llaves y el teléfono en la entrada de casa al llegar.',
+          'Nota cómo tus hombros bajan un poco más, cómo la frente se relaja, cómo la mandíbula se afloja, con cada exhalación lenta.',
+          'Piensa en el día que termina, no para analizarlo, sino simplemente para reconocer que ya ha pasado. Lo que quedó pendiente, seguirá ahí mañana. Ahora mismo, no hace falta resolver nada.',
+          'Sigue respirando con este ritmo suave, inhalando calma, exhalando cansancio. Cada respiración te acerca un poco más a un estado de descanso profundo.',
+          'Si tu mente se va hacia otros pensamientos, no pasa nada. Simplemente vuelve tu atención a la respiración, con suavidad, sin juzgarte por haberte distraído.',
+          'Nota cómo, poco a poco, el cuerpo entero se siente más pesado, más tranquilo, más preparado para el descanso que viene.',
+          'Quédate con esta respiración lenta y suave todo el tiempo que necesites, dejando que cada exhalación te lleve un poco más cerca de la calma.',
+          'Cuando sientas que es momento de terminar, simplemente deja que tu respiración vuelva a su ritmo natural, sin ningún esfuerzo.',
+          'Lleva contigo esta sensación de calma mientras te preparas para descansar. Buenas noches, y que tengas un sueño tranquilo y reparador.'
+        ]
+      }
+    ];
+  }
+
+  function loadAudioLibrary(){
+    try{
+      var raw = localStorage.getItem(LS_AUDIO_LIB);
+      if(raw) return JSON.parse(raw);
+    }catch(e){}
+    var seeded = defaultAudioLibrary();
+    saveAudioLibrary(seeded);
+    return seeded;
+  }
+  function saveAudioLibrary(list){
+    try{ localStorage.setItem(LS_AUDIO_LIB, JSON.stringify(list)); }catch(e){}
+  }
+  var audioLibrary = loadAudioLibrary();
+
+  function escapeHtml(str){
+    return String(str==null?'':str).replace(/[&<>"']/g, function(c){
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+    });
+  }
+  var ICON_EDIT = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+  var ICON_TRASH = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>';
+
+  // ---------------- Text-to-speech playback engine ----------------
+  // iOS Safari / Chrome Android a veces cargan la lista de voces de forma asíncrona;
+  // la precargamos y la refrescamos cuando el navegador avisa que ya está lista.
+  if(window.speechSynthesis){
+    speechSynthesis.getVoices();
+    speechSynthesis.addEventListener('voiceschanged', function(){ speechSynthesis.getVoices(); });
+  }
+  function speakSegments(segments, rate, onAllDone){
+    var idx = 0;
+    if(window.speechSynthesis) speechSynthesis.cancel();
+    function pickVoice(){
+      if(!window.speechSynthesis) return null;
+      var voices = speechSynthesis.getVoices();
+      return voices.find(function(v){ return /^es/i.test(v.lang); }) || null;
+    }
+    function next(){
+      if(!audioPlayback.speaking) return;
+      if(idx >= segments.length){ onAllDone && onAllDone(); return; }
+      var utter = new SpeechSynthesisUtterance(segments[idx]);
+      utter.lang = 'es-ES';
+      utter.rate = rate || 0.82;
+      utter.pitch = 0.95;
+      var v = pickVoice();
+      if(v) utter.voice = v;
+      utter.onend = function(){
+        if(!audioPlayback.speaking) return;
+        idx++;
+        audioPlayback.pauseTimeoutId = setTimeout(next, 4200);
+      };
+      utter.onerror = function(){
+        if(!audioPlayback.speaking) return;
+        idx++;
+        audioPlayback.pauseTimeoutId = setTimeout(next, 1200);
+      };
+      speechSynthesis.speak(utter);
+    }
+    next();
+  }
+
+  // ---------------- Playback controller (shared for tts + file audios) ----------------
+  var audioPlayback = {
+    id:null, timerId:null, startedAt:0, durationSec:0, ambientSound:'none',
+    pauseTimeoutId:null, speaking:false, fileEl:null, fileObjectUrl:null, keepAliveId:null
+  };
+
+  // Object URLs de archivos subidos, precargados para que reproducir funcione
+  // como una acción directa del usuario (necesario en Safari/Chrome de iPhone).
+  var fileUrlCache = {};
+  function warmFileUrlCache(){
+    audioLibrary.forEach(function(item){
+      if(item.type === 'file' && item.hasFile && !fileUrlCache[item.id]){
+        AudioBlobStore.get(item.id).then(function(blob){
+          if(blob && !fileUrlCache[item.id]) fileUrlCache[item.id] = URL.createObjectURL(blob);
+        }).catch(function(){});
+      }
+    });
+  }
+
+  function renderAudioProgress(id, elapsed, total){
+    var fill = $('audioProgressFill_' + id);
+    if(fill) fill.style.width = Math.min(100, Math.round((elapsed/Math.max(1,total))*100)) + '%';
+    var btn = document.querySelector('.audio-play-btn[data-audio-id="' + id + '"]');
+    if(btn) btn.textContent = 'Detener · ' + formatMMSS(Math.max(0, total - elapsed));
+  }
+
+  function stopAudioPlayback(logSession){
+    if(!audioPlayback.id) return;
+    var wasId = audioPlayback.id;
+    var wasDuration = audioPlayback.durationSec;
+    var elapsed = Math.round((Date.now() - audioPlayback.startedAt)/1000);
+    audioPlayback.speaking = false;
+    clearInterval(audioPlayback.timerId);
+    clearInterval(audioPlayback.keepAliveId);
+    clearTimeout(audioPlayback.pauseTimeoutId);
+    if(window.speechSynthesis) speechSynthesis.cancel();
+    if(audioPlayback.ambientSound && audioPlayback.ambientSound !== 'none'){
+      SoundEngine.toggle(audioPlayback.ambientSound, false);
+    }
+    if(audioPlayback.fileEl){
+      try{ audioPlayback.fileEl.pause(); }catch(e){}
+      // La URL del objeto se mantiene en fileUrlCache para reproducirse de nuevo
+      // al instante (sin volver a pedir el archivo a IndexedDB de forma asíncrona).
+      audioPlayback.fileEl = null;
+    }
+    audioPlayback.id = null;
+    renderAudioList();
+    if(logSession && elapsed > 5){
+      logCompletedSession('audio', Math.min(elapsed, wasDuration || elapsed), { audioId:wasId }).then(refreshDashboard);
+    }
+  }
+
+  function playAudio(item){
+    if(audioPlayback.id === item.id){ stopAudioPlayback(false); return; }
+    if(audioPlayback.id){ stopAudioPlayback(false); }
+
+    audioPlayback.id = item.id;
+    audioPlayback.durationSec = item.durationSec || 600;
+    audioPlayback.startedAt = Date.now();
+    audioPlayback.ambientSound = item.ambientSound || 'none';
+    audioPlayback.speaking = true;
+
+    if(audioPlayback.ambientSound !== 'none'){
+      SoundEngine.toggle(audioPlayback.ambientSound, true);
+      SoundEngine.setVolume(audioPlayback.ambientSound, 0.28);
+    }
+
+    if(item.type === 'file'){
+      var cachedUrl = fileUrlCache[item.id];
+      if(cachedUrl){
+        // Reproducción directa y síncrona dentro del gesto del usuario:
+        // imprescindible para que funcione en Safari/Chrome de iPhone.
+        var el = new Audio(cachedUrl);
+        audioPlayback.fileEl = el;
+        el.play().catch(function(){ showToast('Toca reproducir de nuevo para iniciar el audio.'); });
+        el.addEventListener('ended', function(){ if(audioPlayback.id === item.id) stopAudioPlayback(true); });
+      } else {
+        // Primer uso antes de que termine de precargarse: mejor esfuerzo.
+        AudioBlobStore.get(item.id).then(function(blob){
+          if(audioPlayback.id !== item.id) return;
+          if(!blob){ showToast('No se encontró el archivo de este audio.'); stopAudioPlayback(false); return; }
+          var url = URL.createObjectURL(blob);
+          fileUrlCache[item.id] = url;
+          var el = new Audio(url);
+          audioPlayback.fileEl = el;
+          el.play().catch(function(){ showToast('Toca reproducir de nuevo para iniciar el audio.'); });
+          el.addEventListener('ended', function(){ if(audioPlayback.id === item.id) stopAudioPlayback(true); });
+        });
+      }
+    } else {
+      SoundEngine.ensureCtx();
+      speakSegments(item.script || [], 0.82, function(){ /* el ambiente sigue hasta completar la duración */ });
+      // Algunos navegadores (Chrome de escritorio/Android) pausan la síntesis de voz
+      // tras ~15s de inactividad aparente; la reanudamos periódicamente por seguridad.
+      audioPlayback.keepAliveId = setInterval(function(){
+        if(window.speechSynthesis && audioPlayback.speaking) speechSynthesis.resume();
+      }, 9000);
+    }
+
+    audioPlayback.timerId = setInterval(function(){
+      var elapsed = Math.round((Date.now() - audioPlayback.startedAt)/1000);
+      if(elapsed >= audioPlayback.durationSec){
+        stopAudioPlayback(true);
+        return;
+      }
+      renderAudioProgress(item.id, elapsed, audioPlayback.durationSec);
+    }, 500);
+
+    renderAudioList();
+  }
+
+  function renderAudioList(){
+    var container = $('audioList');
+    if(!container) return;
+    container.innerHTML = '';
+    if(audioLibrary.length === 0){
+      container.innerHTML = '<p class="empty-note">Aún no hay audios guiados.</p>';
+      return;
+    }
+    audioLibrary.forEach(function(item){
+      var card = document.createElement('div');
+      card.className = 'audio-card';
+      var isPlaying = audioPlayback.id === item.id;
+      var durLabel = formatMMSS(item.durationSec || 600);
+      var badge = item.type === 'file' ? '<span class="audio-badge file">Archivo</span>' : '<span class="audio-badge">Voz guiada</span>';
+      var ambientLabel = (item.ambientSound && item.ambientSound !== 'none' && SOUND_META[item.ambientSound]) ? (' · con ' + SOUND_META[item.ambientSound].name.toLowerCase() + ' de fondo') : '';
+      card.innerHTML =
+        '<div class="audio-top">' +
+          '<div class="audio-titles"><div class="audio-name">' + escapeHtml(item.title) + '</div>' +
+          '<div class="audio-desc">' + escapeHtml(item.description||'') + '</div></div>' +
+          badge +
+        '</div>' +
+        '<div class="audio-meta-row"><span>' + durLabel + ambientLabel + '</span></div>' +
+        '<div class="audio-progress-track"><div class="audio-progress-fill" id="audioProgressFill_' + item.id + '" style="width:0%"></div></div>' +
+        '<div class="audio-controls">' +
+          '<button class="btn-outline audio-play-btn" data-audio-id="' + item.id + '">' + (isPlaying ? 'Detener · ' + formatMMSS(Math.max(0, audioPlayback.durationSec - Math.round((Date.now()-audioPlayback.startedAt)/1000))) : 'Reproducir') + '</button>' +
+          '<button class="audio-icon-btn dev-only audio-edit-btn" data-audio-id="' + item.id + '" aria-label="Editar" title="Editar">' + ICON_EDIT + '</button>' +
+          '<button class="audio-icon-btn danger dev-only audio-delete-btn" data-audio-id="' + item.id + '" aria-label="Eliminar" title="Eliminar">' + ICON_TRASH + '</button>' +
+        '</div>';
+      container.appendChild(card);
+    });
+
+    qsa('.audio-play-btn', container).forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var item = audioLibrary.find(function(a){ return a.id === btn.dataset.audioId; });
+        if(item) playAudio(item);
+      });
+    });
+    qsa('.audio-edit-btn', container).forEach(function(btn){
+      btn.addEventListener('click', function(){ openAudioForm(btn.dataset.audioId); });
+    });
+    qsa('.audio-delete-btn', container).forEach(function(btn){
+      btn.addEventListener('click', function(){ deleteAudio(btn.dataset.audioId); });
+    });
+  }
+
+  // ---------------- Add / edit audio form ----------------
+  var audioFormState = { editingId:null, type:'tts' };
+
+  function setAudioTypeChip(type){
+    qsa('#audioTypeChips .chip').forEach(function(c){ c.classList.toggle('active', c.dataset.audioType === type); });
+    $('audioFormTts').hidden = type !== 'tts';
+    $('audioFormFile').hidden = type !== 'file';
+    audioFormState.type = type;
+  }
+  qsa('#audioTypeChips .chip').forEach(function(chip){
+    chip.addEventListener('click', function(){ setAudioTypeChip(chip.dataset.audioType); });
+  });
+
+  function setAmbientChip(key){
+    qsa('#audioAmbientChips .chip').forEach(function(c){ c.classList.toggle('active', c.dataset.ambient === key); });
+  }
+  qsa('#audioAmbientChips .chip').forEach(function(chip){
+    chip.addEventListener('click', function(){ setAmbientChip(chip.dataset.ambient); });
+  });
+
+  function openAudioForm(editId){
+    var form = $('audioForm');
+    form.hidden = false;
+    $('btnShowAddAudio').hidden = true;
+    if(editId){
+      var item = audioLibrary.find(function(a){ return a.id === editId; });
+      audioFormState.editingId = editId;
+      $('audioFormTitle').value = item.title;
+      $('audioFormDesc').value = item.description || '';
+      $('audioFormScript').value = (item.script||[]).join('\n');
+      setAudioTypeChip(item.type);
+      setAmbientChip(item.ambientSound || 'none');
+    } else {
+      audioFormState.editingId = null;
+      $('audioFormTitle').value = '';
+      $('audioFormDesc').value = '';
+      $('audioFormScript').value = '';
+      $('audioFormFileInput').value = '';
+      setAudioTypeChip('tts');
+      setAmbientChip('none');
+    }
+    form.scrollIntoView({ behavior:'smooth', block:'center' });
+  }
+  function closeAudioForm(){
+    $('audioForm').hidden = true;
+    $('btnShowAddAudio').hidden = false;
+    audioFormState.editingId = null;
+  }
+
+  function estimateAudioDuration(file){
+    return new Promise(function(resolve){
+      var url = URL.createObjectURL(file);
+      var el = new Audio(url);
+      el.addEventListener('loadedmetadata', function(){
+        resolve(el.duration);
+        URL.revokeObjectURL(url);
+      });
+      el.addEventListener('error', function(){ resolve(null); URL.revokeObjectURL(url); });
+    });
+  }
+
+  $('btnShowAddAudio').addEventListener('click', function(){ openAudioForm(null); });
+  $('btnCancelAudio').addEventListener('click', closeAudioForm);
+
+  $('btnSaveAudio').addEventListener('click', async function(){
+    var title = $('audioFormTitle').value.trim();
+    if(!title){ showToast('Ponle un título al audio.'); return; }
+    var desc = $('audioFormDesc').value.trim();
+    var type = audioFormState.type;
+    var ambientChipEl = qsa('#audioAmbientChips .chip').find(function(c){ return c.classList.contains('active'); });
+    var ambientSound = ambientChipEl ? ambientChipEl.dataset.ambient : 'none';
+
+    var id = audioFormState.editingId || ('audio_' + Date.now().toString(36) + Math.random().toString(36).slice(2,7));
+    var existingIdx = audioLibrary.findIndex(function(a){ return a.id === id; });
+    var existing = existingIdx > -1 ? audioLibrary[existingIdx] : null;
+
+    var record = existing ? Object.assign({}, existing) : { id:id, durationSec:600, createdAt:new Date().toISOString() };
+    record.title = title;
+    record.description = desc;
+    record.type = type;
+    record.ambientSound = ambientSound;
+
+    if(type === 'tts'){
+      var scriptText = $('audioFormScript').value.trim();
+      if(!scriptText){ showToast('Escribe el guion del audio.'); return; }
+      record.script = scriptText.split('\n').map(function(s){ return s.trim(); }).filter(Boolean);
+      record.durationSec = record.durationSec || 600;
+    } else {
+      var fileInput = $('audioFormFileInput');
+      var file = fileInput.files && fileInput.files[0];
+      if(file){
+        await AudioBlobStore.put(id, file);
+        record.hasFile = true;
+        record.fileName = file.name;
+        if(fileUrlCache[id]){ URL.revokeObjectURL(fileUrlCache[id]); }
+        fileUrlCache[id] = URL.createObjectURL(file);
+        try{
+          var estDur = await estimateAudioDuration(file);
+          if(estDur) record.durationSec = Math.round(estDur);
+        }catch(e){}
+      } else if(!existing || !existing.hasFile){
+        showToast('Selecciona un archivo de audio.');
+        return;
+      }
+    }
+
+    if(existing){
+      audioLibrary[existingIdx] = record;
+    } else {
+      audioLibrary.push(record);
+    }
+    saveAudioLibrary(audioLibrary);
+    closeAudioForm();
+    renderAudioList();
+    showToast('Audio guardado');
+  });
+
+  async function deleteAudio(id){
+    if(!confirm('¿Eliminar este audio?')) return;
+    if(audioPlayback.id === id) stopAudioPlayback(false);
+    audioLibrary = audioLibrary.filter(function(a){ return a.id !== id; });
+    saveAudioLibrary(audioLibrary);
+    await AudioBlobStore.remove(id);
+    if(fileUrlCache[id]){ URL.revokeObjectURL(fileUrlCache[id]); delete fileUrlCache[id]; }
+    renderAudioList();
+    showToast('Audio eliminado');
+  }
+
   // ================= Sonidos tab UI =================
   var SOUND_META = {
     lluvia: { name:'Lluvia', icon:'<path d="M8 16.5a4.5 4.5 0 0 1 .5-9 5.5 5.5 0 0 1 10.6 1.6A4 4 0 0 1 18 16.5H8z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9 19l-1 2M13 19l-1 2M17 19l-1 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>' },
-    olas:   { name:'Olas', icon:'<path d="M3 15c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2 2 2 4 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 19c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/>' },
+    olas:   { name:'Olas', icon:'<path d="M3 15c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 19c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/>' },
     bosque: { name:'Bosque', icon:'<path d="M12 2l4 6h-2.5l3.5 5h-3l3 6H7l3-6H7l3.5-5H8z" fill="currentColor"/>' },
     fuego:  { name:'Fuego', icon:'<path d="M12 2c1 3-3 4-3 8a3 3 0 0 0 6 0c0-1-.5-1.6-.8-1.9.3 1.4-.7 2-1.4 2-.9 0-1.3-.8-1.3-1.5 0-1.4 1.3-2.2.7-3.9C15 6.4 17 9 17 13a5 5 0 1 1-10 0c0-4.5 3-7 5-11z" fill="currentColor"/>' },
     viento: { name:'Viento', icon:'<path d="M3 8h11a2.5 2.5 0 1 0-2.5-2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 13h15a2.5 2.5 0 1 1-2.5 2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 18h9a2 2 0 1 0-2-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>' }
@@ -1124,11 +1794,12 @@
     state.sessions.unshift(entry);
   }
 
-  var TYPE_LABEL = { meditar:'Meditación', respirar:'Respiración', nota:'Nota' };
+  var TYPE_LABEL = { meditar:'Meditación', respirar:'Respiración', nota:'Nota', audio:'Audio guiado' };
   var TYPE_ICON = {
     meditar:'<circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/>',
     respirar:'<path d="M12 3c3 3 3 6 0 9s-3 6 0 9M6 8c2 2 2 4 0 6M18 8c-2 2-2 4 0 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
-    nota:'<path d="M6 3h9l3 3v15H6z" fill="none" stroke="currentColor" stroke-width="1.6"/>'
+    nota:'<path d="M6 3h9l3 3v15H6z" fill="none" stroke="currentColor" stroke-width="1.6"/>',
+    audio:'<path d="M4 14v-2a8 8 0 0 1 16 0v2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><rect x="2" y="14" width="5" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="17" y="14" width="5" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>'
   };
 
   function renderStatTiles(){
@@ -1140,7 +1811,7 @@
   }
 
   function renderMiniRecent(){
-    var recentReal = state.sessions.filter(function(s){ return s.type === 'meditar' || s.type === 'respirar'; })[0];
+    var recentReal = state.sessions.filter(function(s){ return s.type === 'meditar' || s.type === 'respirar' || s.type === 'audio'; })[0];
     if(!recentReal){
       $('miniRecentText').textContent = 'Aún no has meditado. Hoy es un buen día para empezar.';
       return;
@@ -1157,7 +1828,7 @@
 
     var byDate = {};
     state.sessions.forEach(function(s){
-      if(s.type !== 'meditar' && s.type !== 'respirar') return;
+      if(s.type !== 'meditar' && s.type !== 'respirar' && s.type !== 'audio') return;
       var key = s.dateKey || localDateKey(new Date(s.completedAt));
       byDate[key] = (byDate[key] || 0) + (s.minutes || 0);
     });
@@ -1191,7 +1862,7 @@
 
   function renderHistoryList(){
     var container = $('historyList');
-    var real = state.sessions.filter(function(s){ return s.type === 'meditar' || s.type === 'respirar'; }).slice(0, 8);
+    var real = state.sessions.filter(function(s){ return s.type === 'meditar' || s.type === 'respirar' || s.type === 'audio'; }).slice(0, 8);
     if(real.length === 0){
       container.innerHTML = '<p class="empty-note">Tu historial de sesiones aparecerá aquí.</p>';
       return;
@@ -1220,9 +1891,12 @@
     state.stats = await Store.getStats();
     state.sessions = await Store.getRecentSessions(40);
     refreshDashboard();
+    renderAudioList();
+    warmFileUrlCache();
   }
   boot();
 })();
 </script>
+
 </body>
 </html>
