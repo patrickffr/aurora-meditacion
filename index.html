@@ -466,6 +466,7 @@
             <button class="chip" data-sound="lluvia">Lluvia</button>
             <button class="chip" data-sound="olas">Olas</button>
             <button class="chip" data-sound="bosque">Bosque</button>
+            <button class="chip" data-sound="fuego">Fuego</button>
             <button class="chip" data-sound="viento">Viento</button>
           </div>
         </div>
@@ -513,6 +514,7 @@
             <button type="button" class="chip" data-ambient="lluvia">Lluvia</button>
             <button type="button" class="chip" data-ambient="olas">Olas</button>
             <button type="button" class="chip" data-ambient="bosque">Bosque</button>
+            <button type="button" class="chip" data-ambient="fuego">Fuego</button>
             <button type="button" class="chip" data-ambient="viento">Viento</button>
           </div>
           <span class="field-label" style="margin-top:12px;">Guion (un párrafo por línea)</span>
@@ -768,12 +770,18 @@
   })();
 
   // ================================================================
-  // SOUND ENGINE — synthesized ambient layers via Web Audio API
+  // SOUND ENGINE — realistic nature ambience via Web Audio API.
+  // Built from pink (1/f) noise beds — much closer to how rain, wind,
+  // waves and fire actually sound than plain filtered white noise —
+  // layered with individually-scheduled micro-details (raindrops,
+  // wave crests, bird calls, embers) so nothing feels like a flat tone.
   // ================================================================
   var SoundEngine = (function(){
     var ctx = null;
     var master = null;
     var layers = {};
+    var pinkBuffer = null;
+    var whiteBuffer = null;
     var LAYER_KEYS = ['lluvia','olas','bosque','fuego','viento'];
 
     function ensureCtx(){
@@ -788,22 +796,60 @@
     function resumeIfNeeded(){
       if(ctx && ctx.state === 'suspended') ctx.resume().catch(function(){});
     }
+    function rand(min, max){ return min + Math.random() * (max - min); }
 
-    function makeNoiseBuffer(c){
+    // Pink noise (Paul Kellet's economy method) has a natural, soft
+    // low-heavy texture — it's the difference between "digital static"
+    // and something that sounds like real air, water or wind.
+    function makePinkBuffer(c){
+      if(pinkBuffer) return pinkBuffer;
+      var length = c.sampleRate * 6;
+      var buffer = c.createBuffer(1, length, c.sampleRate);
+      var data = buffer.getChannelData(0);
+      var b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
+      for(var i=0;i<length;i++){
+        var white = Math.random()*2-1;
+        b0 = 0.99886*b0 + white*0.0555179;
+        b1 = 0.99332*b1 + white*0.0750759;
+        b2 = 0.96900*b2 + white*0.1538520;
+        b3 = 0.86650*b3 + white*0.3104856;
+        b4 = 0.55000*b4 + white*0.5329522;
+        b5 = -0.7616*b5 - white*0.0168980;
+        var pink = b0+b1+b2+b3+b4+b5+b6+white*0.5362;
+        b6 = white*0.115926;
+        data[i] = pink*0.1;
+      }
+      pinkBuffer = buffer;
+      return buffer;
+    }
+    function makeWhiteBuffer(c){
+      if(whiteBuffer) return whiteBuffer;
       var length = c.sampleRate * 2;
       var buffer = c.createBuffer(1, length, c.sampleRate);
       var data = buffer.getChannelData(0);
       for(var i=0;i<length;i++) data[i] = Math.random()*2-1;
+      whiteBuffer = buffer;
       return buffer;
     }
-    function noiseSource(c, buffer){
+    // Looping bed source — starts at a random offset so layered sounds
+    // never phase-lock into a repeating pattern.
+    function loopSource(c, buffer){
       var src = c.createBufferSource();
       src.buffer = buffer;
       src.loop = true;
+      src.start(0, Math.random() * Math.max(0.1, buffer.duration - 0.5));
       return src;
     }
-    function addLFO(c, param, rateHz, depth, base){
+    // One-shot source for a short transient (droplet, chirp, crackle…).
+    function burstSource(c, buffer, when){
+      var src = c.createBufferSource();
+      src.buffer = buffer;
+      src.start(when, Math.random() * Math.max(0.1, buffer.duration - 1));
+      return src;
+    }
+    function addLFO(c, param, rateHz, depth, base, type){
       var lfo = c.createOscillator();
+      lfo.type = type || 'sine';
       lfo.frequency.value = rateHz;
       var lfoGain = c.createGain();
       lfoGain.gain.value = depth;
@@ -816,74 +862,199 @@
 
     function buildLayer(key){
       var c = ensureCtx();
-      var buffer = makeNoiseBuffer(c);
-      var src = noiseSource(c, buffer);
       var volumeGain = c.createGain();
       volumeGain.gain.value = 0.5;
       var extraNodes = [];
       var timers = [];
+      var sources = [];
 
       if(key === 'lluvia'){
-        var bp = c.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=2600; bp.Q.value=0.6;
-        src.connect(bp); bp.connect(volumeGain);
-        extraNodes.push(bp);
+        // Even hiss bed — soft, high-shelved pink noise like steady rainfall.
+        var pinkR = makePinkBuffer(c);
+        var bedR = loopSource(c, pinkR);
+        var bedHp = c.createBiquadFilter(); bedHp.type='highpass'; bedHp.frequency.value=1100;
+        var bedLp = c.createBiquadFilter(); bedLp.type='lowpass'; bedLp.frequency.value=8500;
+        var bedGainR = c.createGain(); bedGainR.gain.value=0.55;
+        bedR.connect(bedHp); bedHp.connect(bedLp); bedLp.connect(bedGainR); bedGainR.connect(volumeGain);
+        sources.push(bedR);
+        extraNodes.push(bedHp, bedLp, bedGainR);
+
+        // Soft low body — rain on a roof/leaves, adds depth under the hiss.
+        var rumbleR = loopSource(c, pinkR);
+        var rumbleLp = c.createBiquadFilter(); rumbleLp.type='lowpass'; rumbleLp.frequency.value=260;
+        var rumbleGain = c.createGain(); rumbleGain.gain.value=0.14;
+        rumbleR.connect(rumbleLp); rumbleLp.connect(rumbleGain); rumbleGain.connect(volumeGain);
+        sources.push(rumbleR);
+        extraNodes.push(rumbleLp, rumbleGain);
+
+        // Individual droplet impacts — this detail is what makes rain
+        // read as real instead of a whistling tone.
+        var whiteR = makeWhiteBuffer(c);
+        function scheduleDroplets(){
+          if(!layers.lluvia || !layers.lluvia.active) return;
+          var count = Math.random() < 0.3 ? 2 : 1;
+          for(var n=0;n<count;n++){
+            var t = c.currentTime;
+            var d = burstSource(c, whiteR, t);
+            var bp = c.createBiquadFilter(); bp.type='bandpass';
+            bp.frequency.value = rand(900, 4200); bp.Q.value = rand(3, 7);
+            var g = c.createGain(); g.gain.value = 0;
+            d.connect(bp); bp.connect(g); g.connect(volumeGain);
+            g.gain.linearRampToValueAtTime(rand(0.05,0.16), t+0.004);
+            g.gain.exponentialRampToValueAtTime(0.001, t+rand(0.04,0.09));
+            d.stop(t+0.12);
+          }
+          timers.push(setTimeout(scheduleDroplets, rand(18, 55)));
+        }
+        timers.push(setTimeout(scheduleDroplets, 200));
       } else if(key === 'olas'){
-        var lp = c.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=700; lp.Q.value=0.5;
-        src.connect(lp);
-        var swellGain = c.createGain(); swellGain.gain.value=0.5;
+        var pinkO = makePinkBuffer(c);
+        var bedO = loopSource(c, pinkO);
+        var lp = c.createBiquadFilter(); lp.type='lowpass'; lp.Q.value=0.4;
+        bedO.connect(lp);
+        var swellGain = c.createGain(); swellGain.gain.value=0.55;
         lp.connect(swellGain); swellGain.connect(volumeGain);
-        var lfo = addLFO(c, swellGain.gain, 0.09, 0.35, 0.5);
-        extraNodes.push(lp, swellGain, lfo);
+        // Two overlapping, non-multiple LFOs on the cutoff and the volume
+        // give an irregular, organic swell instead of one robotic sine sweep.
+        var lfoA = addLFO(c, lp.frequency, 0.045, 340, 620);
+        var lfoB = addLFO(c, lp.frequency, 0.017, 160, 0);
+        var lfoVolA = addLFO(c, swellGain.gain, 0.045, 0.22, 0);
+        var lfoVolB = addLFO(c, swellGain.gain, 0.011, 0.12, 0.45);
+        sources.push(bedO);
+        extraNodes.push(lp, swellGain, lfoA, lfoB, lfoVolA, lfoVolB);
+
+        // Foam hiss riding the swell, plus periodic wave crests breaking.
+        var foam = loopSource(c, makeWhiteBuffer(c));
+        var foamHp = c.createBiquadFilter(); foamHp.type='highpass'; foamHp.frequency.value=2200;
+        var foamGain = c.createGain(); foamGain.gain.value=0.06;
+        foam.connect(foamHp); foamHp.connect(foamGain); foamGain.connect(volumeGain);
+        var foamLfo = addLFO(c, foamGain.gain, 0.045, 0.05, 0.05);
+        sources.push(foam);
+        extraNodes.push(foamHp, foamGain, foamLfo);
+
+        function scheduleCrash(){
+          if(!layers.olas || !layers.olas.active) return;
+          var t = c.currentTime;
+          var s = burstSource(c, makeWhiteBuffer(c), t);
+          var bp = c.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=rand(900,2200); bp.Q.value=0.7;
+          var g = c.createGain(); g.gain.value=0;
+          s.connect(bp); bp.connect(g); g.connect(volumeGain);
+          g.gain.linearRampToValueAtTime(rand(0.1,0.22), t+rand(0.5,0.9));
+          g.gain.exponentialRampToValueAtTime(0.001, t+rand(1.8,2.8));
+          s.stop(t+3.2);
+          timers.push(setTimeout(scheduleCrash, rand(4500, 9000)));
+        }
+        timers.push(setTimeout(scheduleCrash, 1200));
       } else if(key === 'bosque'){
-        var bp2 = c.createBiquadFilter(); bp2.type='bandpass'; bp2.frequency.value=1100; bp2.Q.value=1.4;
-        var bedGain = c.createGain(); bedGain.gain.value=0.35;
-        src.connect(bp2); bp2.connect(bedGain); bedGain.connect(volumeGain);
-        extraNodes.push(bp2, bedGain);
-        function scheduleChirp(){
-          if(!layers.bosque || !layers.bosque.active) return;
+        var pinkB = makePinkBuffer(c);
+        var bedB = loopSource(c, pinkB);
+        var bp2 = c.createBiquadFilter(); bp2.type='bandpass'; bp2.frequency.value=900; bp2.Q.value=0.8;
+        var bedGainB = c.createGain(); bedGainB.gain.value=0.16;
+        bedB.connect(bp2); bp2.connect(bedGainB); bedGainB.connect(volumeGain);
+        var bpLfo = addLFO(c, bp2.frequency, 0.06, 220, 900);
+        sources.push(bedB);
+        extraNodes.push(bp2, bedGainB, bpLfo);
+
+        // A handful of bird-call "species" (single whistle, trill, warble)
+        // picked at random, instead of one repeating chirp tone.
+        function chirpTone(freqStart, freqEnd, dur, delay, peak){
           var osc = c.createOscillator();
           osc.type = 'sine';
-          osc.frequency.value = 1800 + Math.random()*1400;
-          var g = c.createGain(); g.gain.value = 0;
+          var g = c.createGain(); g.gain.value=0;
           osc.connect(g); g.connect(volumeGain);
-          var t = c.currentTime;
-          g.gain.linearRampToValueAtTime(0.18, t+0.02);
-          g.gain.exponentialRampToValueAtTime(0.001, t+0.22);
-          osc.start(t); osc.stop(t+0.25);
-          var next = 2000 + Math.random()*4500;
+          var t = c.currentTime + delay;
+          osc.frequency.setValueAtTime(freqStart, t);
+          osc.frequency.exponentialRampToValueAtTime(freqEnd, t+dur);
+          g.gain.linearRampToValueAtTime(peak, t+Math.min(0.02,dur*0.3));
+          g.gain.exponentialRampToValueAtTime(0.001, t+dur);
+          osc.start(t); osc.stop(t+dur+0.02);
+        }
+        function scheduleChirp(){
+          if(!layers.bosque || !layers.bosque.active) return;
+          var kind = Math.random();
+          var base = rand(1600, 3200);
+          if(kind < 0.4){
+            chirpTone(base, base*rand(1.3,1.7), rand(0.09,0.16), 0, rand(0.12,0.2));
+          } else if(kind < 0.75){
+            var notes = 2 + Math.floor(Math.random()*3);
+            for(var i=0;i<notes;i++){
+              chirpTone(base+rand(-150,150), base*rand(1.1,1.4), rand(0.05,0.08), i*rand(0.07,0.11), rand(0.1,0.17));
+            }
+          } else {
+            chirpTone(base*1.2, base*0.85, rand(0.18,0.3), 0, rand(0.09,0.15));
+          }
+          var next = Math.random() < 0.25 ? rand(400,900) : rand(2200,6000);
           timers.push(setTimeout(scheduleChirp, next));
         }
-        timers.push(setTimeout(scheduleChirp, 1500));
+        timers.push(setTimeout(scheduleChirp, 1200));
       } else if(key === 'fuego'){
-        var bp3 = c.createBiquadFilter(); bp3.type='bandpass'; bp3.frequency.value=900; bp3.Q.value=0.7;
-        var bedGain2 = c.createGain(); bedGain2.gain.value=0.3;
-        src.connect(bp3); bp3.connect(bedGain2); bedGain2.connect(volumeGain);
-        extraNodes.push(bp3, bedGain2);
+        // Low crackling-fire "whoosh" bed, gently flickering in cutoff.
+        var pinkF = makePinkBuffer(c);
+        var bedF = loopSource(c, pinkF);
+        var lpF = c.createBiquadFilter(); lpF.type='lowpass'; lpF.frequency.value=650; lpF.Q.value=0.5;
+        var bedGainF = c.createGain(); bedGainF.gain.value=0.32;
+        bedF.connect(lpF); lpF.connect(bedGainF); bedGainF.connect(volumeGain);
+        var lpFLfo = addLFO(c, lpF.frequency, 0.4, 90, 650);
+        sources.push(bedF);
+        extraNodes.push(lpF, bedGainF, lpFLfo);
+
+        // Crackle and pop of burning wood, with the occasional deeper
+        // "log settling" thud — like sitting right next to a campfire.
+        var whiteF = makeWhiteBuffer(c);
         function scheduleCrackle(){
           if(!layers.fuego || !layers.fuego.active) return;
-          var crackleSrc = noiseSource(c, buffer);
-          var hp = c.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=1800;
-          var g = c.createGain(); g.gain.value=0;
-          crackleSrc.connect(hp); hp.connect(g); g.connect(volumeGain);
-          var t = c.currentTime;
-          g.gain.linearRampToValueAtTime(0.12 + Math.random()*0.1, t+0.005);
-          g.gain.exponentialRampToValueAtTime(0.001, t+0.06+Math.random()*0.05);
-          crackleSrc.start(t); crackleSrc.stop(t+0.15);
-          var next = 90 + Math.random()*300;
-          timers.push(setTimeout(scheduleCrackle, next));
+          var burstCount = Math.random() < 0.22 ? 2 : 1;
+          for(var i=0;i<burstCount;i++){
+            var t = c.currentTime + i*rand(0.02,0.05);
+            var s = burstSource(c, whiteF, t);
+            var hp = c.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=rand(1400,3200);
+            var g = c.createGain(); g.gain.value=0;
+            s.connect(hp); hp.connect(g); g.connect(volumeGain);
+            g.gain.linearRampToValueAtTime(rand(0.08,0.22), t+0.004);
+            g.gain.exponentialRampToValueAtTime(0.001, t+rand(0.03,0.09));
+            s.stop(t+0.15);
+          }
+          if(Math.random() < 0.08){
+            var tS = c.currentTime;
+            var snap = burstSource(c, whiteF, tS);
+            var bpS = c.createBiquadFilter(); bpS.type='bandpass'; bpS.frequency.value=rand(300,650); bpS.Q.value=2;
+            var gS = c.createGain(); gS.gain.value=0;
+            snap.connect(bpS); bpS.connect(gS); gS.connect(volumeGain);
+            gS.gain.linearRampToValueAtTime(rand(0.15,0.26), tS+0.006);
+            gS.gain.exponentialRampToValueAtTime(0.001, tS+rand(0.12,0.22));
+            snap.stop(tS+0.3);
+          }
+          timers.push(setTimeout(scheduleCrackle, rand(80, 320)));
         }
-        timers.push(setTimeout(scheduleCrackle, 400));
+        timers.push(setTimeout(scheduleCrackle, 300));
       } else if(key === 'viento'){
-        var lp2 = c.createBiquadFilter(); lp2.type='lowpass'; lp2.Q.value=4.5;
-        src.connect(lp2); lp2.connect(volumeGain);
-        var lfo2 = addLFO(c, lp2.frequency, 0.05, 260, 500);
-        extraNodes.push(lp2, lfo2);
+        var pinkV = makePinkBuffer(c);
+        var bedV = loopSource(c, pinkV);
+        var lp3 = c.createBiquadFilter(); lp3.type='lowpass'; lp3.Q.value=1.2;
+        bedV.connect(lp3);
+        var bedGainV = c.createGain(); bedGainV.gain.value=0.5;
+        lp3.connect(bedGainV); bedGainV.connect(volumeGain);
+        // Two summed LFOs (slow "breathing" + faster flutter) instead of
+        // one steady sweep, so gusts never feel mechanically repeating.
+        var lfo3 = addLFO(c, lp3.frequency, 0.045, 420, 620);
+        var lfo4 = addLFO(c, lp3.frequency, 0.16, 140, 0);
+        var lfoGustVol = addLFO(c, bedGainV.gain, 0.05, 0.16, 0.4);
+        sources.push(bedV);
+        extraNodes.push(lp3, bedGainV, lfo3, lfo4, lfoGustVol);
+
+        // Faint whistle through a gap — subtle character, not a tone.
+        var whistle = loopSource(c, makeWhiteBuffer(c));
+        var whistleBp = c.createBiquadFilter(); whistleBp.type='bandpass'; whistleBp.Q.value=9;
+        var whistleGain = c.createGain(); whistleGain.gain.value=0.035;
+        whistle.connect(whistleBp); whistleBp.connect(whistleGain); whistleGain.connect(volumeGain);
+        var whistleLfo = addLFO(c, whistleBp.frequency, 0.03, 220, 480);
+        sources.push(whistle);
+        extraNodes.push(whistleBp, whistleGain, whistleLfo);
       }
 
       volumeGain.connect(master);
-      src.start();
 
-      return { source:src, volumeGain:volumeGain, extraNodes:extraNodes, timers:timers, active:true, level:0.5 };
+      return { sources:sources, volumeGain:volumeGain, extraNodes:extraNodes, timers:timers, active:true, level:0.5 };
     }
 
     function toggle(key, on){
@@ -1898,6 +2069,5 @@
   boot();
 })();
 </script>
-
 </body>
 </html>
